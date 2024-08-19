@@ -2,7 +2,11 @@
   "name": "mondjs",
   "version": "1.0.0",
   "description": "🐛 Monadic Error Handling for JavaScript/TypeScript.",
-  "main": "./dist/index.js",
+  "main": "./dist/src/lib/index.js",
+  "scripts": {
+    "build": "pnpm swc src -d dist",
+    "test": "vitest"
+  },
   "keywords": [
     "error-handling",
     "monadic",
@@ -21,6 +25,7 @@
   "devDependencies": {
     "@biomejs/biome": "1.8.3",
     "@swc/cli": "^0.4.0",
-    "@swc/core": "^1.7.14"
+    "@swc/core": "^1.7.14",
+    "vitest": "^2.0.5"
   }
 }
