@@ -1,0 +1,26 @@
+{
+  "name": "mondjs",
+  "version": "1.0.0",
+  "description": "🐛 Monadic Error Handling for JavaScript/TypeScript.",
+  "main": "./dist/index.js",
+  "keywords": [
+    "error-handling",
+    "monadic",
+    "typescript",
+    "javascript",
+    "functional-programming",
+    "result",
+    "exception",
+    "robust",
+    "error-management",
+    "result-type",
+    "errors"
+  ],
+  "author": "Nehuén | https://github.com/nehu3n",
+  "license": "MIT",
+  "devDependencies": {
+    "@biomejs/biome": "1.8.3",
+    "@swc/cli": "^0.4.0",
+    "@swc/core": "^1.7.14"
+  }
+}
