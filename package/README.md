@@ -4,6 +4,8 @@
 
 **_Monadic Error Handling for JavaScript/TypeScript_**
 
+[![Minzipped size][bundlephobia-src]][bundlephobia-href]
+
 </div>
 
 ## 👋🏼 About
@@ -53,3 +55,6 @@ The whole project is under the **MIT license** ([see file](https://github.com/ne
 ## 👤 Author
 
 **MondJS** was created and mainly developed by **Nehuén** ([GitHub here](https://github.com/nehu3n)).
+
+[bundlephobia-src]: https://badgen.net/bundlephobia/minzip/mondjs
+[bundlephobia-href]: https://bundlephobia.com/result?p=mondjs

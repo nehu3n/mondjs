@@ -6,6 +6,8 @@
 
 [![NPM Package](https://img.shields.io/badge/NPM-%23CB3837.svg?style=for-the-badge&logo=npm&logoColor=white)](https://www.npmjs.com/package/mondjs)
 
+[![Minzipped size][bundlephobia-src]][bundlephobia-href]
+
 </div>
 
 ## 👋🏼 About
@@ -55,3 +57,6 @@ The whole project is under the **MIT license** ([see file](./LICENSE)).
 ## 👤 Author
 
 **MondJS** was created and mainly developed by **Nehuén** ([GitHub here](https://github.com/nehu3n)).
+
+[bundlephobia-src]: https://badgen.net/bundlephobia/minzip/mondjs
+[bundlephobia-href]: https://bundlephobia.com/result?p=mondjs
