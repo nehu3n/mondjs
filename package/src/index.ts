@@ -1,3 +1,5 @@
-export { default as Result, ok, err } from "./lib/Result";
+export type { Result } from "./lib/Result";
+export type { Option } from "./lib/Option";
 
-export { default as Option, some, none } from "./lib/Option";
+export { ok, err } from "./lib/Result";
+export { some, none } from "./lib/Option";

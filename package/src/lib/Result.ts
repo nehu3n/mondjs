@@ -82,5 +82,5 @@ function err<E>(error: E): Result<never, E> {
   return new Err(error);
 }
 
-export default Result;
+export type { Result };
 export { ok, err };

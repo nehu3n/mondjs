@@ -54,5 +54,5 @@ function none(): Option<never> {
   return new None();
 }
 
-export default Option;
+export type { Option };
 export { some, none };
