@@ -30,6 +30,10 @@ class Ok<T> {
   ): Result<U, never> {
     return fallback(this.value);
   }
+
+  public match<U>(ops: { Ok: (value: T) => U; Error: (error: never) => U }): U {
+    return ops.Ok(this.value);
+  }
 }
 
 class Err<E> {
@@ -61,6 +65,10 @@ class Err<E> {
 
   public andThen<U>(fallback: (value: never) => Result<U, E>): Result<U, E> {
     return this as Err<E>;
+  }
+
+  public match<U>(ops: { Ok: (value: never) => U; Error: (error: E) => U }): U {
+    return ops.Error(this.error);
   }
 }
 
