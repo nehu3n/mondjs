@@ -2,6 +2,10 @@
   "name": "mondjs",
   "version": "1.0.0",
   "description": "🐛 Monadic Error Handling for JavaScript/TypeScript.",
+  "repository": {
+    "url": "https://github.com/nehu3n/mondjs"
+  },
+  "homepage": "https://github.com/nehu3n/mondjs?tab=readme-ov-file",
   "main": "./dist/index.js",
   "scripts": {
     "build": "tsc",

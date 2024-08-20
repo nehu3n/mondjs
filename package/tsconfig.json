@@ -10,8 +10,8 @@
     "forceConsistentCasingInFileNames": true,
     "sourceMap": true,
     "resolveJsonModule": true,
-    "lib": ["ES6", "DOM"],
+    "lib": ["ES6", "DOM"]
   },
-  "include": ["src/**/*"],
+  "include": ["./**/*"],
   "exclude": ["node_modules", "dist", "src/testing"]
 }
