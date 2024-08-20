@@ -8,6 +8,28 @@ class Ok<T> {
   public isErr(): boolean {
     return false;
   }
+
+  public unwrap(): T {
+    return this.value;
+  }
+
+  public unwrapOr(defaultValue: T): T {
+    return this.value;
+  }
+
+  public expect(message: string): T {
+    return this.value;
+  }
+
+  public unwrapOrElse(fallback: (error: never) => T): T {
+    return this.value;
+  }
+
+  public andThen<U>(
+    fallback: (value: T) => Result<U, never>
+  ): Result<U, never> {
+    return fallback(this.value);
+  }
 }
 
 class Err<E> {
@@ -19,6 +41,26 @@ class Err<E> {
 
   public isErr(): boolean {
     return true;
+  }
+
+  public unwrap(): never {
+    throw this.error;
+  }
+
+  public unwrapOr<T>(defaultValue: T): T {
+    return defaultValue;
+  }
+
+  public expect(message: string): never {
+    throw new Error(message);
+  }
+
+  public unwrapOrElse<T>(fallback: (error: E) => T): T {
+    return fallback(this.error);
+  }
+
+  public andThen<U>(fallback: (value: never) => Result<U, E>): Result<U, E> {
+    return this as Err<E>;
   }
 }
 
@@ -32,46 +74,5 @@ function err<E>(error: E): Result<never, E> {
   return new Err(error);
 }
 
-function unwrap<T, E>(result: Result<T, E>): T {
-  if (result instanceof Ok) {
-    return result.value;
-  }
-  throw result.error;
-}
-
-function unwrapOr<T, E>(result: Result<T, E>, defaultValue: T): T {
-  if (result instanceof Ok) {
-    return result.value;
-  }
-  return defaultValue;
-}
-
-function unwrapOrElse<T, E>(
-  result: Result<T, E>,
-  fallback: (error: E) => T
-): T {
-  if (result instanceof Ok) {
-    return result.value;
-  }
-  return fallback(result.error);
-}
-
-function expect<T, E>(result: Result<T, E>, message: string): T {
-  if (result instanceof Ok) {
-    return result.value;
-  }
-  throw new Error(message);
-}
-
-function andThen<T, E, U>(
-  result: Result<T, E>,
-  fallback: (value: T) => Result<U, E>
-): Result<U, E> {
-  if (result instanceof Ok) {
-    return fallback(result.value);
-  }
-  return result as Err<E>;
-}
-
 export default Result;
-export { ok, err, unwrap, unwrapOr, unwrapOrElse, expect, andThen };
+export { ok, err };
