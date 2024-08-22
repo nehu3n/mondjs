@@ -1,6 +1,6 @@
 {
   "name": "mondjs",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "🐛 Monadic Error Handling for JavaScript/TypeScript.",
   "repository": {
     "url": "https://github.com/nehu3n/mondjs"

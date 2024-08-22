@@ -1,7 +1,7 @@
 import { it, expect } from "vitest";
 
 import { divide } from "../../shared/shared";
-import { ERROR_MESSAGE_DIVIDE } from "../../shared/consts";
+import { ERROR_MESSAGE_DIVIDE } from "../../shared/defs.ts";
 
 it("should match Ok result correctly", () => {
   const result = divide(20, 2);
