@@ -34,6 +34,10 @@ class Ok<T> {
   public match<U>(ops: { Ok: (value: T) => U; Error: (error: never) => U }): U {
     return ops.Ok(this.value);
   }
+
+  public unpack(): [T | null, null] {
+    return [this.value, null];
+  }
 }
 
 class Err<E> {
@@ -69,6 +73,10 @@ class Err<E> {
 
   public match<U>(ops: { Ok: (value: never) => U; Error: (error: E) => U }): U {
     return ops.Error(this.error);
+  }
+
+  public unpack(): [null, E | null] {
+    return [null, this.error];
   }
 }
 
