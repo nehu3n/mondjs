@@ -123,5 +123,11 @@ The whole project is under the **MIT license** ([see file](./LICENSE)).
 
 **MondJS** was created and mainly developed by **Nehuén** ([GitHub here](https://github.com/nehu3n)).
 
+<div align="right">
+
+###### **Give a star** ⭐ to this repository if you see this 😉.
+
+</div>
+
 [bundlephobia-src]: https://badgen.net/bundlephobia/minzip/mondjs
 [bundlephobia-href]: https://bundlephobia.com/result?p=mondjs
