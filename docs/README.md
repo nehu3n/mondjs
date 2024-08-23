@@ -25,7 +25,119 @@ Monadic error handling provides a more structured and predictable approach to ma
 5. **Structured Error Propagation**
    With Result types, errors can be propagated up the call stack in a structured manner. Functions that return Result allow you to chain operations and handle errors in a consistent way, improving the robustness of your error-handling strategy.
 
-## 🔮 Type Option
+## 🎭 Result type
+
+The `Result` type in **MondJS** is a powerful tool for handling errors in a safe and explicit way. Unlike exceptions, which can propagate unexpectedly, `Result` allows you to manage errors in a controlled and predictable manner, enhancing the robustness of your code.
+
+### How It Works 🧰
+
+The `Result` type can have two possible states:
+
+- `Ok(value)`: Indicates that the operation was successful and contains a value.
+- `Err(error)`: Indicates that the operation failed and contains an error.
+
+### Why Use `Result`? 🤔
+
+1. **Explicit Error Handling**  
+   With `Result`, error handling is explicit. Instead of throwing exceptions, functions return a `Result`, which forces the developer to handle both the success and failure of an operation in a clear and direct way.
+
+2. **Prevents Silent Failures**  
+   Instead of relying on exceptions that might not be properly caught, the `Result` type ensures that errors are handled consciously, avoiding failures that could go unnoticed.
+
+3. **Improves Readability**  
+   By using `Result`, your code can avoid multiple `try-catch` blocks, resulting in a cleaner and easier-to-follow structure. The flow of error handling becomes more consistent and understandable.
+
+4. **Fits Well with Functional Programming**  
+   `Result` aligns well with functional programming principles, facilitating function composition and safe error handling.
+
+### Example of `Result` Usage 📋
+
+Here’s an example of how you could use `Result` to handle division operations:
+
+```ts
+import { type Result, ok, err } from "mondjs";
+
+/**
+ * Function that attempts to divide two numbers.
+ * If successful, returns Ok(result); otherwise, returns Err(error).
+ */
+function divide(a: number, b: number): Result<number, string> {
+  if (a === 0 || b === 0) {
+    return err("Division by zero.");
+  }
+
+  return ok(a / b);
+}
+```
+
+```ts
+// Example 1: Successful division
+const result1 = divide(10, 2);
+
+console.log(result1.unwrap()); // 5
+```
+
+```ts
+// Example 2: Handling error with `unwrapOr`
+const result2 = divide(10, 0).unwrapOr(-1);
+console.log(result2); // -1
+```
+
+```ts
+// Example 3: Using `match` to handle different outcomes
+divide(10, 2).match({
+  Ok: (value) => `Result: ${value}`,
+  Err: (error) => `Error: ${error}`,
+});
+```
+
+```ts
+// Example 4: Unpacking the result
+const [value, error] = divide(20, 2).unpack();
+console.log(value); // 10
+console.log(error); // null
+```
+
+### Useful Methods of `Result` 🧩
+
+- **`unwrap()`**: Returns the value contained in `Ok`, or throws an exception if it’s `Err`.
+
+- **`expect("message")`**: Returns the value contained in `Ok`, or throws an exception with a custom message if it’s `Err`.
+
+- **`unwrapOr(defaultValue)`**: Returns the value in `Ok`, or a default value if it’s `Err`.
+
+- **`unwrapOrElse(fn)`**: Returns the value in `Ok`, or the result of a function if it’s `Err`.
+
+- **`andThen(fn)`**: If the `Result` is `Ok`, applies the function `fn` to the value and returns the resulting `Result`; if it’s `Err`, it returns the original `Err`.
+
+- **`isOk()`**: Returns `true` if it’s `Ok`, otherwise `false`.
+
+- **`isErr()`**: Returns `true` if it’s `Err`, otherwise `false`.
+
+- **`unpack()`**: Unpacks the `Result` into a two-element array: `[value, error]`, where one of them will be `null`.
+
+- **`match(ops)`**: Applies a function based on whether the `Result` is `Ok` or `Err`. You provide a set of functions in `ops` to handle both cases. For example:
+  - `ops.Ok(value)`: Called if the `Result` is `Ok`.
+  - `ops.Err(error)`: Called if the `Result` is `Err`.
+
+### Advantages of Using `Result` 🌟
+
+1. **Reduces Unexpected Errors**  
+   With `Result`, you’re less likely to encounter unexpected errors, as you are required to explicitly handle both success and failure cases.
+
+2. **Clear Control Flow**  
+   `Result` makes the control flow in your code more predictable and easier to follow, improving maintainability.
+
+3. **Consistency in Error Handling**  
+   Using `Result` encourages a consistent approach to error handling, which can unify coding patterns across a development team.
+
+4. **Enhances Type Safety in TypeScript**  
+   `Result` helps improve type safety in TypeScript by forcing you to handle all possible outcomes of an operation.
+
+5. **Optimizes Code Reviews**  
+   Since optional values and errors are handled explicitly, code reviews can focus more on business logic rather than spotting unhandled errors.
+
+## 🔮 Option type
 
 The `Option` type in **MondJS** is a safer and more expressive alternative to using `null` or `undefined` for handling values that may or may not be present. Instead of dealing with unexpected errors or possible references to `null` or `undefined`, the `Option` type forces the programmer to explicitly handle returned values, providing greater safety and clarity in code flow.
 
@@ -118,6 +230,10 @@ console.log(userOption2); // { id: 0, name: "Unknown" }
 - **`isSome()`**: Returns `true` if it's `Some`, otherwise `false`.
 
 - **`isNone()`**: Returns `true` if it's `None`, otherwise `false`.
+
+- **`match(ops)`**: Applies a function based on whether the `Option` is `Some` or `None`. You provide a set of functions in `ops` to handle both cases. For example:
+  - `ops.Some(value)`: Called if the `Option` is `Some`.
+  - `ops.None()`: Called if the `Option` is `None`.
 
 ### Advantages of Using `Option` Over `null` or `undefined` 🌈
 
