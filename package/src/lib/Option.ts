@@ -20,6 +20,10 @@ class Some<T> {
   public expect(message: string): T {
     return this.value;
   }
+
+  public match<U>(ops: { Some: (value: T) => U; None: () => U }): U {
+    return ops.Some(this.value);
+  }
 }
 
 class None {
@@ -41,6 +45,10 @@ class None {
 
   public expect(message: string): never {
     throw new Error(message);
+  }
+
+  public match<U>(ops: { Some: (value: never) => U; None: () => U }): U {
+    return ops.None();
   }
 }
 
