@@ -1,0 +1,16 @@
+lockfileVersion: '6.0'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
+dependencies:
+  mondjs:
+    specifier: ^1.1.0
+    version: 1.1.0
+
+packages:
+
+  /mondjs@1.1.0:
+    resolution: {integrity: sha512-m3mC2VwGjq/4/BVZWK2g25D7ZSXkpVVVxZvxo9zizS2Ai/FOrtAePHIDzKrQm7k4v95nmtkWw5puoOqj9bpB4g==}
+    dev: false
