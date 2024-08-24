@@ -143,6 +143,22 @@ class Ok<T> {
   public unpack(): [T | null, null] {
     return [this.value, null];
   }
+
+  /**
+   * Applies a function to the contained value if this is an Ok instance,
+   * and returns a new Ok instance with the transformed value.
+   *
+   * @param {(value: T) => U} mapper - The function to apply to the contained value.
+   * @returns {Result<U, never>} - A new Ok instance with the transformed value.
+   *
+   * @example
+   * const result = ok(5);
+   * const newResult = result.map(value => value * 2);
+   * console.log(newResult.unwrap()); // 10
+   */
+  public map<U>(mapper: (value: T) => U): Result<U, never> {
+    return ok(mapper(this.value));
+  }
 }
 
 /**
@@ -287,6 +303,22 @@ class Err<E> {
    */
   public unpack(): [null, E | null] {
     return [null, this.error];
+  }
+
+  /**
+   * Applies a function to the contained value if this is an Ok instance,
+   * and returns the original Err instance unchanged.
+   *
+   * @param {(value: never) => U} mapper - The function to apply to the contained value.
+   * @returns {Result<U, E>} - The original Err instance.
+   *
+   * @example
+   * const result = err("An error");
+   * const newResult = result.map(value => value * 2);
+   * console.log(newResult); // Err("An error")
+   */
+  public map<U>(mapper: (value: never) => U): Result<U, E> {
+    return this as Err<E>;
   }
 }
 
