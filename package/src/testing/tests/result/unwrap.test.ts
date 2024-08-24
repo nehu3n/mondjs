@@ -13,3 +13,17 @@ it("should throw an error when unwrapping an Err result", () => {
   const result = divide(4, 0);
   expect(() => result.unwrap()).toThrowError(ERROR_MESSAGE_DIVIDE);
 });
+
+it("should throw an error when unwrapErr is called on an Ok instance", () => {
+  const result = divide(10, 2);
+
+  expect(() => result.unwrapErr()).toThrowError(
+    "Tried to 'unwrapErr' an Ok value: 5"
+  );
+});
+
+it("should return the error value when unwrapErr is called on an Err instance", () => {
+  const result = divide(4, 0);
+
+  expect(result.unwrapErr()).toBe(ERROR_MESSAGE_DIVIDE);
+});

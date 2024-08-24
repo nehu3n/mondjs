@@ -9,7 +9,7 @@ class Ok<T> {
    *
    * @param {T} value - The value to be contained in this Ok instance.
    */
-  constructor(public value: T) {}
+  constructor(readonly value: T) {}
 
   /**
    * Returns true if this is an Ok variant.
@@ -159,6 +159,45 @@ class Ok<T> {
   public map<U>(mapper: (value: T) => U): Result<U, never> {
     return ok(mapper(this.value));
   }
+
+  /**
+   * Throws an exception if called on an `Ok` instance, indicating that an attempt
+   * was made to unwrap an error from a successful result. If called on an `Err` instance,
+   * it returns the contained error value.
+   *
+   * @throws {Error} - Throws an Error with a message indicating that an attempt was made
+   * to 'unwrapErr' from an `Ok` value.
+   * @returns {E} - Returns the contained error if this is an `Err` instance.
+   *
+   * @example
+   * const resultOk = ok("Success");
+   * resultOk.unwrapErr(); // Throws Error: "Tried to 'unwrapErr' an Ok value: Success"
+   *
+   * const resultErr = err("Failure");
+   * console.log(resultErr.unwrapErr()); // "Failure"
+   */
+  public unwrapErr(): never {
+    throw new Error(`Tried to 'unwrapErr' an Ok value: ${this.value}`);
+  }
+
+  /**
+   * Returns the contained error if this is an `Err` instance, or throws an exception
+   * with a provided message if this is an `Ok` instance.
+   *
+   * @param {string} message - The message to be used for the exception if this is an `Ok` instance.
+   * @throws {Error} - Throws an Error with the provided message if this is an `Ok` instance.
+   * @returns {E} - Returns the contained error if this is an `Err` instance.
+   *
+   * @example
+   * const resultOk = ok("Success");
+   * resultOk.expectErr("Expected an error but got an Ok value"); // Throws Error: "Expected an error but got an Ok value"
+   *
+   * const resultErr = err("Failure");
+   * console.log(resultErr.expectErr("No error present")); // "Failure"
+   */
+  public expectErr(message: string): never {
+    throw new Error(message);
+  }
 }
 
 /**
@@ -172,7 +211,7 @@ class Err<E> {
    *
    * @param {E} error - The error to be contained in this Err instance.
    */
-  constructor(public error: E) {}
+  constructor(readonly error: E) {}
 
   /**
    * Returns false if this is an Ok variant.
@@ -319,6 +358,45 @@ class Err<E> {
    */
   public map<U>(mapper: (value: never) => U): Result<U, E> {
     return this as Err<E>;
+  }
+
+  /**
+   * Throws an exception if called on an `Ok` instance, indicating that an attempt
+   * was made to unwrap an error from a successful result. If called on an `Err` instance,
+   * it returns the contained error value.
+   *
+   * @throws {Error} - Throws an Error with a message indicating that an attempt was made
+   * to 'unwrapErr' from an `Ok` value.
+   * @returns {E} - Returns the contained error if this is an `Err` instance.
+   *
+   * @example
+   * const resultOk = ok("Success");
+   * resultOk.unwrapErr(); // Throws Error: "Tried to 'unwrapErr' an Ok value: Success"
+   *
+   * const resultErr = err("Failure");
+   * console.log(resultErr.unwrapErr()); // "Failure"
+   */
+  public unwrapErr(): E {
+    return this.error;
+  }
+
+  /**
+   * Returns the contained error if this is an `Err` instance, or throws an exception
+   * with a provided message if this is an `Ok` instance.
+   *
+   * @param {string} message - The message to be used for the exception if this is an `Ok` instance.
+   * @throws {Error} - Throws an Error with the provided message if this is an `Ok` instance.
+   * @returns {E} - Returns the contained error if this is an `Err` instance.
+   *
+   * @example
+   * const resultOk = ok("Success");
+   * resultOk.expectErr("Expected an error but got an Ok value"); // Throws Error: "Expected an error but got an Ok value"
+   *
+   * const resultErr = err("Failure");
+   * console.log(resultErr.expectErr("No error present")); // "Failure"
+   */
+  public expectErr(message: string): E {
+    return this.error;
   }
 }
 
