@@ -1,3 +1,5 @@
+import { type Option, None, Some } from "./Option";
+
 /**
  * Represents a successful result containing a value.
  *
@@ -198,6 +200,38 @@ class Ok<T> {
   public expectErr(message: string): never {
     throw new Error(message);
   }
+
+  /**
+   * Converts Result<T, E> to Option<T>. Returns Some(T) if Ok(T); None if Err(E).
+   *
+   * @returns {Option<T>} - Some(T) if Ok(T); None if Err(E)
+   *
+   * @example
+   * const resultOk = ok("Success");
+   * console.log(resultOk.ok()); // Some("Success")
+   *
+   * const resultErr = err("Failure");
+   * console.log(resultErr.ok()); // None
+   */
+  public ok(): Option<T> {
+    return new Some(this.value);
+  }
+
+  /**
+   * Converts Result<T, E> to Option<E>. Returns Some(E) if Err(E); None if Ok(T).
+   *
+   * @returns {Option<E>} - Some(E) if Err(E); None if Ok(T)
+   *
+   * @example
+   * const resultErr = err("Failure");
+   * console.log(resultErr.err()); // Some("Failure")
+   *
+   * const resultOk = ok("Success");
+   * console.log(resultOk.err()); // None
+   */
+  public err(): Option<never> {
+    return new None();
+  }
 }
 
 /**
@@ -397,6 +431,38 @@ class Err<E> {
    */
   public expectErr(message: string): E {
     return this.error;
+  }
+
+  /**
+   * Converts Result<T, E> to Option<T>. Returns Some(T) if Ok(T); None if Err(E).
+   *
+   * @returns {Option<T>} - Some(T) if Ok(T); None if Err(E)
+   *
+   * @example
+   * const resultOk = ok("Success");
+   * console.log(resultOk.ok()); // Some("Success")
+   *
+   * const resultErr = err("Failure");
+   * console.log(resultErr.ok()); // None
+   */
+  public ok(): Option<never> {
+    return new None();
+  }
+
+  /**
+   * Converts Result<T, E> to Option<E>. Returns Some(E) if Err(E); None if Ok(T).
+   *
+   * @returns {Option<E>} - Some(E) if Err(E); None if Ok(T)
+   *
+   * @example
+   * const resultErr = err("Failure");
+   * console.log(resultErr.err()); // Some("Failure")
+   *
+   * const resultOk = ok("Success");
+   * console.log(resultOk.err()); // None
+   */
+  public err(): Option<E> {
+    return new Some(this.error);
   }
 }
 

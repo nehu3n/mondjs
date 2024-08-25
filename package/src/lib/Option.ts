@@ -3,7 +3,7 @@
  *
  * @template T - The type of the value contained in the Option.
  */
-class Some<T> {
+export class Some<T> {
   /**
    * Creates an instance of Some.
    *
@@ -102,7 +102,7 @@ class Some<T> {
 /**
  * Represents a value that is absent.
  */
-class None {
+export class None {
   /**
    * Returns false if this is a Some variant.
    *
