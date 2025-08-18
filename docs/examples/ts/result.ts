@@ -7,7 +7,7 @@ import { type Result, err, ok } from "mondjs";
   The second is the failure type, which will be passed to the 'err' function.
 */
 function divide(a: number, b: number): Result<number, string> {
-  if (a === 0 || b === 0) {
+  if (b === 0) {
     return err("Divided by 0."); // Returns an error with 'err'
   }
 
